@@ -1,13 +1,22 @@
+
+import authRouter from "./routes/auth.js"
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import errorHandler from "./middlewares/errorHandler.js";
 
+
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
+
 app.use(express.json());
+
+
+//routes 
+app.use("/api/auth", authRouter )
+
 
 mongoose.connect(process.env.MONGODB_URI);
 const db = mongoose.connection;
