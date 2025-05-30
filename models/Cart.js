@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { getActiveUser } from "../globalActiveUser/globalActiveUser";
 
 const cartSchema = new mongoose.Schema({
   items: [
@@ -14,6 +15,7 @@ const cartSchema = new mongoose.Schema({
     unique: true,
   },
   userId: {
+    default: () => getActiveUser(),
     type: String,
     required: true,
   },
