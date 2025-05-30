@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import errorHandler from "./middlewares/errorHandler.js";
 
 dotenv.config();
 const app = express();
@@ -19,3 +20,6 @@ db.once("open", () => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// ErrorHandling
+app.use(errorHandler);
