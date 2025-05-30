@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -18,6 +19,11 @@ const userSchema = new mongoose.Schema({
     type: [String],
     required: true,
     enum: ["user", "admin"],
+  },
+  userId: {
+    type: String,
+    default: () => uuidv4().replace(/-/g, "").slice(0, 10),
+    unique: true,
   },
 });
 
