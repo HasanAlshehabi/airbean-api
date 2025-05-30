@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: () => uuidv4().replace(/-/g, "").slice(0, 10),
     unique: true,
+    required: true,
   },
 });
 
