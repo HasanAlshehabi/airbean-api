@@ -1,12 +1,14 @@
 import express from "express";
-import Cart from "../models/Cart.js";
-
+import { updateCart, getCartByUserId, getCartById } from "../services/cart.js";
+import { getActiveUserId } from "../globalActiveUser/globalActiveUser.js";
+import { requireAuth } from "../middleware/authorization.js";
 const router = express.Router();
 
 // GET all carts
-router.get("/", async (req, res) => {
+router.get("/", requireAuth, async (req, res) => {
   try {
-    const cart = await Cart.find();
+    const userId = getActiveUserId();
+    const cart = await getCartByUserId(userId);
     res.json(cart);
   } catch (error) {
     res.status(401).json({
@@ -17,9 +19,9 @@ router.get("/", async (req, res) => {
 });
 
 // hämta cart med given cartId
-router.get("/:cartId", async (req, res) => {
+router.get("/:cartId", requireAuth, async (req, res) => {
   try {
-    const cart = await Cart.find({ userId: req.params.userId });
+    const cart = await getCartById(req.params.cartId);
     if (!cart) {
       res.status(400).json({
         success: false,
@@ -34,5 +36,8 @@ router.get("/:cartId", async (req, res) => {
     });
   }
 });
+
+// PUT
+router.put("");
 
 export default router;
