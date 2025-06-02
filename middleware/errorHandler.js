@@ -1,6 +1,6 @@
-export default function errorHandler(error, req, res, next) {
-  res.status(error.status).json({
+export default function errorHandler(err, req, res, next) {
+  res.status(err.status).json({
     success: false,
-    message: error.message,
+    message: err.message,
   });
 }
