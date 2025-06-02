@@ -1,6 +1,7 @@
-export default function errorHandler(err, req, res, next) {
-  res.status(err.status).json({
+export default function errorHandler(error, req, res, next) {
+  const statusCode = error.status || 500;
+  res.status(statusCode).json({
     success: false,
-    message: err.message,
+    message: error.message || 'Internal server error',
   });
 }

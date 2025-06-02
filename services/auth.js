@@ -59,7 +59,7 @@ export const validateLogin = async (username, password, role) => {
 
   return {
     success: true,
-    message: `välkommen ${user.username}du är nu inloggad!`,
-    user: username.user,
+    message: `Välkommen ${user.username} du är nu inloggad!`,
+    user,
   };
 };

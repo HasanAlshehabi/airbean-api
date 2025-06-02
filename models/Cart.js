@@ -3,17 +3,14 @@ import { getActiveUser } from "../globalActiveUser/globalActiveUser.js";
 
 const cartSchema = new mongoose.Schema({
   items: [
-    {
-      title: { type: String, required: true },
-      price: { type: Number, required: true },
-      qty: { type: Number, required: true },
-    },
-  ],
-  productId: {
-    type: String,
-    required: true,
-    unique: true,
-  },
+  {
+    prodId: { type: String, required: true },
+    title: String,
+    price: Number,
+    qty: Number,
+  }
+],
+
   userId: {
     default: () => getActiveUser(),
     type: String,
