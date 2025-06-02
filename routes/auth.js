@@ -1,6 +1,6 @@
 import Router from "express";
-import validateRegistration from "../services/auth";
-import User from "../models/User";
+import validateRegistration, { HTTPResponses } from "../services/auth.js";
+import User from "../models/User.js";
 
 const router = Router();
 
@@ -11,17 +11,24 @@ router.get("/logout", (req, res) => {});
 
 //POST Register
 router.post("/register", async (req, res) => {
-  //Skicka username, password
-  const { username, password, role } = req.body;
-  
-  if (await validateRegistration(username, password, role))
-    try {
-      const result = await User.create(user);
-      return result;
-    } catch (error) {
-      console.log(error.message);
-      return null;
+  const user = req.body;
+  const validationResult = await validateRegistration(user);
+
+  if (validateRegistration) {
+    if (!validationResult.successful) {
+      res.status(validationResult.statusCode).json(validationResult);
+    } else {
+      try {
+        const createdUser = await User.create(user);
+        if (createdUser) {
+          res.status(HTTPResponses).json;
+        }
+      } catch (error) {
+        console.log(error.message);
+        return null;
+      }
     }
+  }
 });
 
 export default router;
