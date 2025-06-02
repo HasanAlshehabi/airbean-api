@@ -1,5 +1,6 @@
 
 import authRouter from "./routes/auth.js"
+import orderRouter from "./routes/orders.js";
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -15,6 +16,8 @@ app.use(express.json());
 
 //routes 
 app.use("/api/auth", authRouter )
+app.use("/api/orders", orderRouter);
+
 
 
 mongoose.connect(process.env.MONGODB_URI);
