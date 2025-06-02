@@ -42,25 +42,30 @@ router.put("/", async (req, res) => {
   try {
     const { guestId, prodId, qty } = req.body;
     const activeUserId = getActiveUserId();
+
     const { cart, isGuest } = await updateCart(
       activeUserId,
       guestId,
       prodId,
       qty
     );
+
     const response = {
       message: "Cart updated successfully",
-      cartId: cart_id,
+      cartId: cart._id,
       cart,
     };
+
     if (isGuest) {
       response.guestId = cart.userId;
     }
+
     res.json(response);
   } catch (error) {
+    console.log("ERROR:", error.message);
     res.status(400).json({
       success: false,
-      message: "user ID not provided",
+      message: error.message,
     });
   }
 });

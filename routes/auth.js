@@ -16,11 +16,13 @@ router.post("/login", async (req, res) => {
     })
   }
   const user = result.user
+  global._activeUser = user; // sätter den globala användaren
+
   res.json({
     success: true,
     message: result.message,
     user: {
-      username: user.username, role: user.role
+      username: user.username, role: user.role, userId: user.userId
     }
   })
 
@@ -39,7 +41,7 @@ router.post("/register", async (req, res) => {
   const user = req.body;
   const validationResult = await validateRegistration(user);
 
-  if (validateRegistration) {
+  if (validationResult){
     if (!validationResult.successful) {
       res.status(validationResult.statusCode).json(validationResult);
     } else {
