@@ -1,4 +1,4 @@
-import { getActiveUserId } from '../global/globalActiveUser.js';
+import { getActiveUserId } from "../globalActiveUser/globalActiveUser.js";
 
 export function requireAuth(req, res, next) {
   const userId = getActiveUserId();

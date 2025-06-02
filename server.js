@@ -5,8 +5,7 @@ import productsRouter from "./routes/products.js";
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import errorHandler from "./middlewares/errorHandler.js";
-
+import errorHandler from "./middleware/errorHandler.js";
 
 dotenv.config();
 const app = express();

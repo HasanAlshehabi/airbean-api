@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { getActiveUser } from "../globalActiveUser/globalActiveUser";
+import { getActiveUser } from "../globalActiveUser/globalActiveUser.js";
 
 const cartSchema = new mongoose.Schema({
   items: [
