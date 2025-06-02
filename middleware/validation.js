@@ -1,12 +1,11 @@
-import { Product } from '../models/product.js';
+import Product from "../models/product";
 
-export async function isProductinDatabase(product) {
-    try {
-        const productExists = await Product.exists({ product : product});
-        if(productExists) return true;
-        else throw new Error('Product does not exists');
-    } catch(error) {
-        console.log(error.message);
-        return false;
-    }
+export async function validateProduct(req, res, next) {
+  const { prodId } = req.body;
+  if (!prodId) return res.status(400).json({ error: 'Missing prodId' });
+
+  const product = await Product.findOne({ prodId });
+  if (!product) return res.status(400).json({ error: 'Invalid prodId' });
+
+  next();
 }
