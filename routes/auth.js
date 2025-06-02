@@ -30,7 +30,13 @@ router.post("/login", async (req, res) => {
 
 });
 //GET Logout
-router.get("/logout", (req, res) => {});
+router.get("/logout", (req, res) => {
+  global._activeUser = {} //rensar globala användaren
+  res.status(200).json({
+    success: true,
+    message : "You logged out"
+  })
+});
 
 //POST Register
 router.post("/register", async (req, res) => {
