@@ -1,31 +1,26 @@
-import Cart from "../models/Cart.js";
-import Product from "../models/product.js";
+import  Cart  from '../models/Cart.js';
+import  Product  from '../models/product.js';
 
-export async function updateCart(activeUserId, userId, prodId, qty) {
+export async function updateCart(activeUserId,guestId, prodId, qty) {
   const product = await Product.findOne({ prodId });
-  if (!product) throw new Error("Invalid product ID");
+  if (!product) throw new Error('Invalid product ID');
 
   let userId = activeUserId || guestId;
   let isGuest = false;
 
   if (!userId) {
-    userId = `guest-${Math.floor(Math.random().toString(36).substring(2, 10))}`;
+    userId = `guest-${Math.random().toString(36).substring(2, 10)}`;
     isGuest = true;
   }
 
   let cart = await Cart.findOne({ userId });
   if (!cart) cart = await Cart.create({ userId, items: [] });
 
-  const existingItem = cart.items.find((item) => item.prodId === prodId);
+  const existingItem = cart.items.find(item => item.prodId === prodId);
   if (existingItem) {
     existingItem.qty = qty;
   } else {
-    cart.items.push({
-      prodId,
-      title: product.title,
-      price: product.price,
-      qty,
-    });
+    cart.items.push({ prodId, title: product.title, price: product.price, qty });
   }
 
   await cart.save();
