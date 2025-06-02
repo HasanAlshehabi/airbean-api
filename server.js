@@ -1,10 +1,11 @@
 
 import authRouter from "./routes/auth.js"
+import orderRouter from "./routes/orders.js";
 import productsRouter from "./routes/products.js";
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-
+import errorHandler from "./middleware/errorHandler.js";
 
 dotenv.config();
 const app = express();
@@ -15,7 +16,8 @@ app.use(express.json());
 
 
 //routes 
-app.use("/api/auth", authRouter );
+app.use("/api/auth", authRouter )
+app.use("/api/orders", orderRouter);
 app.use("/api/products", productsRouter);
 
 
@@ -30,3 +32,6 @@ db.once("open", () => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+// ErrorHandling
+app.use(errorHandler);
