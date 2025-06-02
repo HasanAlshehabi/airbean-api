@@ -1,9 +1,5 @@
 import Router from "express";
-
 import {validateRegistration, validateLogin, HTTPResponses } from "../services/auth.js";
-
-
-
 import User from "../models/User.js";
 
 const router = Router();
