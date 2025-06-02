@@ -18,8 +18,6 @@ app.use(express.json());
 //routes 
 app.use("/api/auth", authRouter )
 app.use("/api/orders", orderRouter);
-
-app.use("/api/auth", authRouter );
 app.use("/api/products", productsRouter);
 
 
