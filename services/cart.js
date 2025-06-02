@@ -5,6 +5,14 @@ export async function updateCart(userId, prodId, qty) {
   const product = await Product.findOne({ prodId });
   if (!product) throw new Error('Invalid product ID');
 
+  let userId = activeUserId || guestId;
+  let isGuest = false;
+
+  if (!userId) {
+    userId = `guest-${Math.random().toString(36).substring(2, 10)}`;
+    isGuest = true;
+  }
+
   let cart = await Cart.findOne({ userId });
   if (!cart) cart = await Cart.create({ userId, items: [] });
 
@@ -16,7 +24,7 @@ export async function updateCart(userId, prodId, qty) {
   }
 
   await cart.save();
-  return cart;
+  return { cart, isGuest };
 }
 
 export async function getCartByUserId(userId) {
