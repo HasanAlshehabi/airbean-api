@@ -1,5 +1,5 @@
+import Cart from "../models/Cart.js";
 import { Order } from "../models/Order.js";
-import Cart from "../models/cart.js";
 
 export async function getAllOrders() {
   return await Order.find();
@@ -10,7 +10,7 @@ export async function getOrdersByUserId(userId) {
 }
 
 export async function createOrder(cartId) {
-  const cart = await Cart.findById(cartId);
+  const cart = await Cart.findOne({ cartId });
   if (!cart) throw new Error("Invalid cart ID");
 
   const total = cart.items.reduce(
@@ -24,6 +24,6 @@ export async function createOrder(cartId) {
     total,
   });
 
-  await Cart.findByIdAndDelete(cartId);
+  await Cart.findOneAndDelete({ cartId });
   return order;
 }

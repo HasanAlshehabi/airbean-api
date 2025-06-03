@@ -1,5 +1,5 @@
 import express from "express";
-import { requireAuth } from "../middleware/authorization.js";
+import { allowGuestOrUser, requireAuth } from "../middleware/authorization.js";
 import {
   createOrder,
   getOrdersByUserId,
@@ -18,7 +18,7 @@ router.get("/:userId", requireAuth, async (req, res) => {
   res.json(orders);
 });
 
-router.post("/", requireAuth, async (req, res) => {
+router.post("/", allowGuestOrUser, async (req, res) => {
   try {
     const { cartId } = req.body;
     const order = await createOrder(cartId);

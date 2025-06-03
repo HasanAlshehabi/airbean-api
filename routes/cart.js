@@ -18,7 +18,7 @@ router.get("/", requireAuth, async (req, res) => {
   }
 });
 
-// hämta cart med given cartId
+// Hämta cart med given cartId
 router.get("/:cartId", requireAuth, async (req, res) => {
   try {
     const cart = await getCartById(req.params.cartId);

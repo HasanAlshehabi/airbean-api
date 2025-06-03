@@ -1,5 +1,7 @@
-import Cart from "../models/cart.js";
+import Cart from "../models/Cart.js";
 import Product from "../models/product.js";
+
+
 
 export async function updateCart(activeUserId, guestId, prodId, qty) {
   const product = await Product.findOne({ prodId });
@@ -37,5 +39,5 @@ export async function getCartByUserId(userId) {
 }
 
 export async function getCartById(cartId) {
-  return await Cart.findById(cartId);
+  return await Cart.findOne({ cartId });
 }
