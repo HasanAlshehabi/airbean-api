@@ -52,7 +52,6 @@ router.put("/", async (req, res) => {
 
     const response = {
       message: "Cart updated successfully",
-      cartId: cart._id,
       cart,
     };
 
