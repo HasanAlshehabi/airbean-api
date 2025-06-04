@@ -18,21 +18,29 @@ export async function updateCart(activeUserId, guestId, prodId, qty) {
   let cart = await Cart.findOne({ userId });
   if (!cart) cart = await Cart.create({ userId, items: [] });
 
-  const existingItem = cart.items.find((item) => item.prodId === prodId);
-  if (existingItem) {
-    existingItem.qty = qty;
+  const existingItemIndex = cart.items.findIndex((item) => item.prodId === prodId);
+
+  if (existingItemIndex !== -1) {
+    if (qty === 0) {
+      cart.items.splice(existingItemIndex, 1);
+    } else {
+      cart.items[existingItemIndex].qty = qty;
+    }
   } else {
-    cart.items.push({
-      prodId,
-      title: product.title,
-      price: product.price,
-      qty,
-    });
+    if (qty > 0) {
+      cart.items.push({
+        prodId,
+        title: product.title,
+        price: product.price,
+        qty,
+      });
+    }
   }
 
   await cart.save();
   return { cart, isGuest };
 }
+
 
 export async function getCartByUserId(userId) {
   return (await Cart.findOne({ userId })) || { items: [] };
