@@ -1,8 +1,6 @@
 import Cart from "../models/Cart.js";
 import Product from "../models/product.js";
 
-
-
 export async function updateCart(activeUserId, guestId, prodId, qty) {
   const product = await Product.findOne({ prodId });
   if (!product) throw new Error("Invalid product ID");
@@ -18,7 +16,9 @@ export async function updateCart(activeUserId, guestId, prodId, qty) {
   let cart = await Cart.findOne({ userId });
   if (!cart) cart = await Cart.create({ userId, items: [] });
 
-  const existingItemIndex = cart.items.findIndex((item) => item.prodId === prodId);
+  const existingItemIndex = cart.items.findIndex(
+    (item) => item.prodId === prodId
+  );
 
   if (existingItemIndex !== -1) {
     if (qty === 0) {
@@ -40,7 +40,6 @@ export async function updateCart(activeUserId, guestId, prodId, qty) {
   await cart.save();
   return { cart, isGuest };
 }
-
 
 export async function getCartByUserId(userId) {
   return (await Cart.findOne({ userId })) || { items: [] };

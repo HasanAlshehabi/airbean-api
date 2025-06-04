@@ -5,6 +5,7 @@ import {
   HTTPResponses,
 } from "../services/auth.js";
 import User from "../models/user.js";
+import { setActiveUser } from "../globalActiveUser/globalActiveUser.js";
 
 const router = Router();
 
@@ -20,7 +21,7 @@ router.post("/login", async (req, res) => {
     });
   }
   const user = result.user;
-  global._activeUser = user; // sätter den globala användaren
+  setActiveUser(user);
 
   res.json({
     success: true,
@@ -34,7 +35,7 @@ router.post("/login", async (req, res) => {
 });
 //GET Logout
 router.get("/logout", (req, res) => {
-  global._activeUser = {}; //rensar globala användaren
+  setActiveUser({});
   res.status(200).json({
     success: true,
     message: "You logged out",
