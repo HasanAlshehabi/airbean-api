@@ -36,7 +36,7 @@ export const validateRegistration = async (user) => {
   }
 };
 
-export const validateLogin = async (username, password, role) => {
+export const validateLogin = async (username, password) => {
   if (!username || !password) {
     return {
       success: false,

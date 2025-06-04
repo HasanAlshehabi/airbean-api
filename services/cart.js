@@ -21,7 +21,7 @@ export async function updateCart(activeUserId, guestId, prodId, qty) {
   );
 
   if (existingItemIndex !== -1) {
-    if (qty === 0) {
+    if (qty <= 0) {
       cart.items.splice(existingItemIndex, 1);
     } else {
       cart.items[existingItemIndex].qty = qty;

@@ -11,8 +11,8 @@ const router = Router();
 
 //POST Login
 router.post("/login", async (req, res) => {
-  const { username, password, role } = req.body;
-  const result = await validateLogin(username, password, role);
+  const { username, password } = req.body;
+  const result = await validateLogin(username, password);
 
   if (!result.success) {
     return res.status(401).json({
@@ -28,7 +28,6 @@ router.post("/login", async (req, res) => {
     message: result.message,
     user: {
       username: user.username,
-      role: user.role,
       userId: user.userId,
     },
   });

@@ -27,8 +27,8 @@ db.on("error", (error) => {
 db.once("open", () => {
   console.log("Connected to MongoDB");
   app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+    console.log(`Server is running on port ${PORT}`);
+  });
 });
 // ErrorHandling
 app.use(errorHandler);
